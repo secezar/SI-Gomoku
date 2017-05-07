@@ -1,5 +1,7 @@
 package pl.janyst.GUI;
 
+import pl.janyst.Game.Gomoku;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
@@ -8,13 +10,14 @@ import javax.swing.*;
 /**
  * Created by Piotr Janyst on 2017-05-06.
  */
-public class Gomoku {
+public class GomokuBoard {
     public static void main(String[] args) {
         JFrame frame = new JFrame();
+
         final int FRAME_WIDTH = 1000;
         final int FRAME_HEIGHT = 1000;
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        frame.setTitle("Gomoku Game");
+        frame.setTitle("GomokuBoard Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         GomokuPanel panel = new GomokuPanel(15);
         frame.add(panel);
@@ -25,9 +28,11 @@ public class Gomoku {
 class GomokuPanel extends JPanel {
     private final int MARGIN = 5;
     private final double PIECE_FRAC = 0.9;
-    int [][] pieces;
-    private Color current = Color.BLACK;
-    private int size = 15;
+    Gomoku gomoku;
+    private static int GAME_STATE;
+    private static final int PLAY = 1;
+    private static final int FINISH = 2;
+    private static final int DRAW = 3;
 
     public GomokuPanel() {
         this(15);
@@ -35,9 +40,9 @@ class GomokuPanel extends JPanel {
 
     public GomokuPanel(int size) {
         super();
-        this.size = size;
-        this.pieces = new int [size][size];
+        gomoku = new Gomoku(15);
         addMouseListener(new GomokuListener());
+        GAME_STATE = PLAY;
     }
 
     class GomokuListener extends MouseAdapter {
@@ -45,27 +50,18 @@ class GomokuPanel extends JPanel {
             double panelWidth = getWidth();
             double panelHeight = getHeight();
             double boardWidth = Math.min(panelWidth, panelHeight) - 2 * MARGIN;
-            double squareWidth = boardWidth / size;
+            double squareWidth = boardWidth / gomoku.getSize();
             double xLeft = (panelWidth - boardWidth) / 2 + MARGIN;
             double yTop = (panelHeight - boardWidth) / 2 + MARGIN;
-            int col = (int) Math.round((e.getX() - xLeft) / squareWidth - 0.5);
+            int column = (int) Math.round((e.getX() - xLeft) / squareWidth - 0.5);
             int row = (int) Math.round((e.getY() - yTop) / squareWidth - 0.5);
             try {
-                if (current == Color.BLACK) {
-                    if (pieces[row][col] == 0) {
-                        pieces[row][col] = 1;
-                        current = Color.WHITE;
-                    }
-                } else {
-                    if (pieces[row][col] == 0) {
-                        pieces[row][col] = 2;
-                        current = Color.BLACK;
-                    }
-                }
+                gomoku.takeTurn(row,column);
             }
             catch(IndexOutOfBoundsException ex){
                 System.out.println("Border clicked");
             }
+
             repaint();
         }
     }
@@ -83,6 +79,7 @@ class GomokuPanel extends JPanel {
 
 
         double boardWidth = Math.min(panelWidth, panelHeight) - 2 * MARGIN;
+        int size = gomoku.getSize();
         double squareWidth = boardWidth / size;
         double gridWidth = (size - 1) * squareWidth;
         double pieceDiameter = PIECE_FRAC * squareWidth;
@@ -100,24 +97,23 @@ class GomokuPanel extends JPanel {
         }
 
         for (int row = 0; row < size; row++)
-            for (int col = 0; col < size; col++) {
-            Color piece = current;
-            boolean found=false;
-            if(pieces[row][col] == 1){
+            for (int column = 0; column < size; column++) {
+            boolean found = false;
+            if(gomoku.getBoardElement(row, column) == 1) {
                 found = true;
                 g2.setColor(Color.WHITE);
             }
-            if(pieces[row][col] == 2) {
+            if(gomoku.getBoardElement(row, column) == 2) {
                 found = true;
                 g2.setColor(Color.BLACK);
             }
             if(found) {
-                double xCenter = xLeft + col * squareWidth;
+                double xCenter = xLeft + column * squareWidth;
                 double yCenter = yTop + row * squareWidth;
                 Ellipse2D.Double circle = new Ellipse2D.Double(xCenter - pieceDiameter / 2,
                         yCenter - pieceDiameter / 2, pieceDiameter, pieceDiameter);
                 g2.fill(circle);
-                g2.setColor(Color.black);
+                g2.setColor(Color.BLACK);
                 g2.draw(circle);
             }
         }

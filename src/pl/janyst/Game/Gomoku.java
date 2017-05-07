@@ -1,17 +1,23 @@
 package pl.janyst.Game;
 
+import javax.swing.*;
 import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Created by Piotr Janyst on 2017-05-06.
  */
 public class Gomoku {
-    int size;
-    int [][] board;
-    int player;
+    private int size;
+    private int [][] board;
+    private int player;
+
+    public Gomoku() {
+        this(15);
+    }
 
     public Gomoku(int size) {
         this.size = size;
@@ -19,9 +25,35 @@ public class Gomoku {
         this.player = 1;
     }
 
+    public int getSize() {
+        return size;
+    }
+
+    public int[][] getBoard() {
+        return board;
+    }
+
+    public int getBoardElement(int row, int column) {
+        return board[row][column];
+    }
+
+    public void setBoardElement(int row, int column, int element) {
+        board[row][column] = element;
+    }
+
+    public int getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(int player) {
+        this.player = player;
+    }
+
     public void takeTurn(int row, int column) {
         makeMove(row, column);
-        isWin(row, column);
+        if(isWin(row, column)) {
+            JOptionPane.showMessageDialog(null, "The player " + player + " win.");
+        }
         switchPlayer();
     }
 
@@ -31,26 +63,44 @@ public class Gomoku {
         }
     }
 
-    private void switchPlayer() {
+    public void switchPlayer() {
         player = (player == 1) ? 2 : 1;
     }
 
-    private boolean isWin(int row, int column) {
-        return isFiveNeighbouring(row, column);
+    public boolean isWin(int row, int column) {
+        boolean result = isFiveNeighbouring(row, column);
+        System.out.println("RESULT: " + result);
+        return result;
     }
 
     public boolean isFiveNeighbouring(int row, int column) {
         ArrayList<ArrayList<Integer>> neighbours = getNeighbouring(row, column);
         boolean result = false;
+        int neighbourList = 0;
         for (ArrayList<Integer> neighbour: neighbours) {
-            for (int i = 0; i < neighbour.size()-5; i++) {
-                int sum = neighbour.get(i) + neighbour.get(i+1) + neighbour.get(i+2) + neighbour.get(i+3) + neighbour.get(i+4);
-                if (sum == 5 || sum == 10) {
-                    result = true;
+            if (neighbourList == 0)
+                System.out.println("Row neighbour!");
+            else if (neighbourList == 1)
+                System.out.println("Crossleft neighbour!");
+            else if (neighbourList == 2)
+                System.out.println("Column neighbour!");
+            else if (neighbourList == 3)
+                System.out.println("Crossright neighbour!");
+
+            if (neighbour.size() >= 5)
+                for (int i = 0; i < neighbour.size()-4; i++) {
+                    System.out.println(neighbour.get(i) + " " + neighbour.get(i+1) + " " + neighbour.get(i+2) + " " + neighbour.get(i+3) + " " + neighbour.get(i+4));
+                    System.out.println(Objects.equals(neighbour.get(i), neighbour.get(i + 1)) && Objects.equals(neighbour.get(i), neighbour.get(i + 2))
+                            && Objects.equals(neighbour.get(i), neighbour.get(i + 3)) && Objects.equals(neighbour.get(i), neighbour.get(i + 4)));
+                    if (Objects.equals(neighbour.get(i), neighbour.get(i + 1)) && Objects.equals(neighbour.get(i), neighbour.get(i + 2))
+                            && Objects.equals(neighbour.get(i), neighbour.get(i + 3)) && Objects.equals(neighbour.get(i), neighbour.get(i + 4))) {
+                        System.out.println("WIN");
+                        result = true;
+                    }
                 }
-            }
+            neighbourList++;
         }
-        return false;
+        return result;
     }
 
     public ArrayList<ArrayList<Integer>> getNeighbouring(int row, int column) {
@@ -61,7 +111,6 @@ public class Gomoku {
         ArrayList<Integer> rightCrossNeighbouring = new ArrayList<>();
         ArrayList<Integer> rowNeighbouring = new ArrayList<>();
         ArrayList<Integer> columnNeighbouring = new ArrayList<>();
-
 
         for (int i = -4; i < 5; i++) {
             try {
