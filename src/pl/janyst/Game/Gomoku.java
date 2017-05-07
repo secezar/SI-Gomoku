@@ -40,36 +40,54 @@ public class Gomoku {
     }
 
     public boolean isFiveNeighbouring(int row, int column) {
-        getNeighbouring(row, column);
-        return true;
+        ArrayList<ArrayList<Integer>> neighbours = getNeighbouring(row, column);
+        boolean result = false;
+        for (ArrayList<Integer> neighbour: neighbours) {
+            for (int i = 0; i < neighbour.size()-5; i++) {
+                int sum = neighbour.get(i) + neighbour.get(i+1) + neighbour.get(i+2) + neighbour.get(i+3) + neighbour.get(i+4);
+                if (sum == 5 || sum == 10) {
+                    result = true;
+                }
+            }
+        }
+        return false;
     }
 
-    public ArrayList<int[]> getNeighbouring(int row, int column) {
+    public ArrayList<ArrayList<Integer>> getNeighbouring(int row, int column) {
 
-        ArrayList<int[]> neighbours = new ArrayList<>();
-        int[] leftCrossNeighbouring = new int[row < 4 || row > size-4 || column < 4 || column > size-4 ? 5+(row > column ? column : row) : 9];
-        int[] rightCrossNeighbouring = new int[row < 4 || row > size-4 || column < 4 || column > size-4 ? 5+(row > column ? column : row) : 9];
-        int[] rowNeighbouring = Arrays.copyOfRange(board[row], column < 4 ? 0 : column-4, column > size-4 ? size : column+5);
-        int[] columnNeighbouring = Arrays.copyOfRange(getColumn(column), column < 4 ? 0 : column-4, column > size-4 ? size : column+5);
+        ArrayList<ArrayList<Integer>> neighbours = new ArrayList<>();
 
-//        if (column < 4) {
-//            for (int i = row >= 4 ? -column : column > row ? -row : -column; row <= size-4 ? i < 5 : i < size-row; i++) {
-//                leftCrossNeighbouring[i] = board[row+i][column+i];
-//                rightCrossNeighbouring[i] = board[row+i][column-i];
-//            }
-//        }
-//        else if (column >=4 && column <= size-4) {
-//            for (int i = row >= 4 ? -4 : -row; row <= size-4 ? i < 5 : i < size-row; i++) {
-//                leftCrossNeighbouring[i] = board[row+i][column+i];
-//                rightCrossNeighbouring[i] = board[row+i][column-i];
-//            }
-//        }
-//        else if (column > size-4) {
-//            for (int i = row >= 4 ? -4 : -row; row <= size-4 ? i < size-column : column > row ? i < size-row : i < size-column; i++) {
-//                leftCrossNeighbouring[i] = board[row+i][column+i];
-//                rightCrossNeighbouring[i] = board[row+i][column-i];
-//            }
-//        }
+        ArrayList<Integer> leftCrossNeighbouring = new ArrayList<>();
+        ArrayList<Integer> rightCrossNeighbouring = new ArrayList<>();
+        ArrayList<Integer> rowNeighbouring = new ArrayList<>();
+        ArrayList<Integer> columnNeighbouring = new ArrayList<>();
+
+
+        for (int i = -4; i < 5; i++) {
+            try {
+                leftCrossNeighbouring.add(board[row+i][column+i]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+            }
+        }
+
+        for (int i = -4; i < 5; i++) {
+            try {
+                rightCrossNeighbouring.add(board[row+i][column-i]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+            }
+        }
+        for (int i = -4; i < 5; i++) {
+            try {
+        rowNeighbouring.add(board[row][column+i]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+            }
+        }
+        for (int i = -4; i < 5; i++) {
+            try {
+        columnNeighbouring.add(board[row+i][column]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+            }
+        }
         neighbours.add(rowNeighbouring);
         neighbours.add(leftCrossNeighbouring);
         neighbours.add(columnNeighbouring);
