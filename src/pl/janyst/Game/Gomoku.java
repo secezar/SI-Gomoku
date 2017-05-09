@@ -53,6 +53,14 @@ public class Gomoku {
         this.player = player;
     }
 
+    public int getMoves() {
+        return moves;
+    }
+
+    public void setMoves(int moves) {
+        this.moves = moves;
+    }
+
     public int[] getVertexes() {
         return vertexes;
     }
@@ -81,7 +89,7 @@ public class Gomoku {
             switchPlayer();
     }
 
-    private boolean makeMove(int row, int column) {
+    public boolean makeMove(int row, int column) {
         boolean isMoved = false;
         if (board[row][column] == 0) {
             board[row][column] = player;

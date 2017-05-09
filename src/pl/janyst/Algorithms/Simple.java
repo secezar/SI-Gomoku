@@ -12,8 +12,7 @@ public class Simple implements EvaluationFunction {
     @Override
     public int evaluate(Gomoku gomoku) {
         int sum = 0;
-        int[][] board = gomoku.getBoard();
-        int boardLength = board.length;
+        int boardLength = gomoku.getSize();
         for (int row = 0; row < boardLength; row++) {
             for (int column = 0; column < boardLength; column++) {
                 ArrayList<ArrayList<Integer>> lineNeighbours = gomoku.getNeighbouring(row,column);

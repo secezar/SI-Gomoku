@@ -2,30 +2,16 @@ package pl.janyst.GUI;
 
 import pl.janyst.Game.Gomoku;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.*;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
 
-/**
- * Created by Piotr Janyst on 2017-05-06.
- */
-public class GomokuBoard {
-    public static void main(String[] args) {
-        JFrame frame = new JFrame();
 
-        final int FRAME_WIDTH = 1000;
-        final int FRAME_HEIGHT = 1000;
-        frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        frame.setTitle("GomokuBoard Game");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        GomokuPanel panel = new GomokuPanel(15);
-        frame.add(panel);
-        frame.setVisible(true);
-    }
-}
-
-class GomokuPanel extends JPanel {
+public class GomokuPanel extends JPanel {
     private final int MARGIN = 5;
     private final double PIECE_FRAC = 0.9;
     Gomoku gomoku;
@@ -50,13 +36,29 @@ class GomokuPanel extends JPanel {
             double panelWidth = getWidth();
             double panelHeight = getHeight();
             double boardWidth = Math.min(panelWidth, panelHeight) - 2 * MARGIN;
-            double squareWidth = boardWidth / gomoku.getSize();
+            int gomokuSize = gomoku.getSize();
+            double squareWidth = boardWidth / gomokuSize;
             double xLeft = (panelWidth - boardWidth) / 2 + MARGIN;
             double yTop = (panelHeight - boardWidth) / 2 + MARGIN;
             int column = (int) Math.round((e.getX() - xLeft) / squareWidth - 0.5);
             int row = (int) Math.round((e.getY() - yTop) / squareWidth - 0.5);
             try {
-                gomoku.takeTurn(row,column);
+                boolean isMoved = gomoku.makeMove(row,column);
+                boolean win = gomoku.isWin(row, column);
+                boolean draw = gomoku.getMoves() == gomokuSize * gomokuSize + 1;
+
+                if(win) {
+                    JOptionPane.showMessageDialog(null, "The player " + gomoku.getPlayer() + " win.");
+                    gomoku = new Gomoku(gomokuSize);
+                }
+                else {
+                    if(draw) {
+                        JOptionPane.showMessageDialog(null, "DRAW!");
+                        gomoku = new Gomoku(gomokuSize);
+                    }
+                }
+                if (isMoved && !win && !draw)
+                    gomoku.switchPlayer();
             }
             catch(IndexOutOfBoundsException ex){
                 System.out.println("Border clicked");
