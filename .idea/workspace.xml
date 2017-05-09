@@ -2,14 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e495bd6e-315f-403e-b3cd-5eedac4ef122" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/MinMax/pl/janyst/GUI/Gomoku.class" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/pl/janyst/GUI/Gomoku.java" afterPath="$PROJECT_DIR$/src/pl/janyst/GUI/GomokuBoard.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MinMax/pl/janyst/GUI/GomokuPanel$GomokuListener.class" afterPath="$PROJECT_DIR$/out/production/MinMax/pl/janyst/GUI/GomokuPanel$GomokuListener.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/pl/janyst/Algorithms/ClusterNeighbours.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/pl/janyst/Algorithms/RandomScore.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/pl/janyst/Algorithms/Simple.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/pl/janyst/Algorithms/SimpleDef.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MinMax/pl/janyst/Algorithms/EvaluationFunction.class" afterPath="$PROJECT_DIR$/out/production/MinMax/pl/janyst/Algorithms/EvaluationFunction.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MinMax/pl/janyst/Algorithms/Minimax.class" afterPath="$PROJECT_DIR$/out/production/MinMax/pl/janyst/Algorithms/Minimax.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MinMax/pl/janyst/GUI/GomokuPanel.class" afterPath="$PROJECT_DIR$/out/production/MinMax/pl/janyst/GUI/GomokuPanel.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MinMax/pl/janyst/Game/Gomoku.class" afterPath="$PROJECT_DIR$/out/production/MinMax/pl/janyst/Game/Gomoku.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/MinMax/pl/janyst/Game/GomokuTests.class" afterPath="$PROJECT_DIR$/out/production/MinMax/pl/janyst/Game/GomokuTests.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pl/janyst/Algorithms/EvaluationFunction.java" afterPath="$PROJECT_DIR$/src/pl/janyst/Algorithms/EvaluationFunction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pl/janyst/Algorithms/Minimax.java" afterPath="$PROJECT_DIR$/src/pl/janyst/Algorithms/Minimax.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pl/janyst/Game/Gomoku.java" afterPath="$PROJECT_DIR$/src/pl/janyst/Game/Gomoku.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pl/janyst/Main.java" afterPath="$PROJECT_DIR$/src/pl/janyst/Main.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,8 +30,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pl/janyst/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="3" lean-forward="false" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
+            <state relative-caret-position="153">
+              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -35,13 +40,9 @@
       <file leaf-file-name="GomokuBoard.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pl/janyst/GUI/GomokuBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="485">
-              <caret line="115" column="39" lean-forward="false" selection-start-line="115" selection-start-column="39" selection-end-line="115" selection-end-column="39" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#966#967#0" expanded="true" />
-                <element signature="e#990#991#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-118">
+              <caret line="27" column="6" lean-forward="false" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -49,12 +50,35 @@
       <file leaf-file-name="Minimax.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pl/janyst/Algorithms/Minimax.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="6" selection-end-column="3" />
+            <state relative-caret-position="340">
+              <caret line="74" column="88" lean-forward="false" selection-start-line="74" selection-start-column="88" selection-end-line="74" selection-end-column="88" />
               <folding>
-                <element signature="e#256#257#0" expanded="true" />
-                <element signature="e#316#317#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#2838#2839#0" expanded="true" />
+                <element signature="e#2896#2897#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SimpleDef.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pl/janyst/Algorithms/SimpleDef.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="16" column="53" lean-forward="true" selection-start-line="16" selection-start-column="53" selection-end-line="16" selection-end-column="53" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ClusterNeighbours.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pl/janyst/Algorithms/ClusterNeighbours.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="17" column="96" lean-forward="false" selection-start-line="17" selection-start-column="96" selection-end-line="17" selection-end-column="96" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -62,26 +86,32 @@
       <file leaf-file-name="Gomoku.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pl/janyst/Game/Gomoku.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="55" selection-end-column="9" />
+            <state relative-caret-position="296">
+              <caret line="90" column="0" lean-forward="false" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#345#346#0" expanded="true" />
-                <element signature="e#369#370#0" expanded="true" />
-                <element signature="e#527#528#0" expanded="true" />
-                <element signature="e#554#555#0" expanded="true" />
-                <element signature="e#587#588#0" expanded="true" />
-                <element signature="e#615#616#0" expanded="true" />
-                <element signature="e#670#671#0" expanded="true" />
-                <element signature="e#711#712#0" expanded="true" />
-                <element signature="e#780#781#0" expanded="true" />
-                <element signature="e#824#825#0" expanded="true" />
-                <element signature="e#854#855#0" expanded="true" />
-                <element signature="e#883#884#0" expanded="true" />
-                <element signature="e#924#925#0" expanded="true" />
-                <element signature="e#960#961#0" expanded="true" />
-                <element signature="e#1376#1377#0" expanded="true" />
-                <element signature="e#1422#1423#0" expanded="true" />
+                <element signature="e#396#397#0" expanded="true" />
+                <element signature="e#420#421#0" expanded="true" />
+                <element signature="e#714#715#0" expanded="true" />
+                <element signature="e#741#742#0" expanded="true" />
+                <element signature="e#774#775#0" expanded="true" />
+                <element signature="e#802#803#0" expanded="true" />
+                <element signature="e#857#858#0" expanded="true" />
+                <element signature="e#898#899#0" expanded="true" />
+                <element signature="e#967#968#0" expanded="true" />
+                <element signature="e#1011#1012#0" expanded="true" />
+                <element signature="e#1041#1042#0" expanded="true" />
+                <element signature="e#1070#1071#0" expanded="true" />
+                <element signature="e#1111#1112#0" expanded="true" />
+                <element signature="e#1147#1148#0" expanded="true" />
+                <element signature="e#1181#1182#0" expanded="true" />
+                <element signature="e#1212#1213#0" expanded="true" />
+                <element signature="e#1259#1260#0" expanded="true" />
+                <element signature="e#1299#1300#0" expanded="true" />
+                <element signature="e#2776#2777#0" expanded="true" />
+                <element signature="e#2814#2815#0" expanded="true" />
+                <element signature="e#2846#2847#0" expanded="true" />
+                <element signature="e#2888#2889#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -90,21 +120,11 @@
       <file leaf-file-name="GomokuTests.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pl/janyst/Game/GomokuTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
+            <state relative-caret-position="969">
               <caret line="57" column="79" lean-forward="false" selection-start-line="57" selection-start-column="79" selection-end-line="57" selection-end-column="79" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EvaluationFunction.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pl/janyst/Algorithms/EvaluationFunction.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="37" lean-forward="false" selection-start-line="5" selection-start-column="37" selection-end-line="5" selection-end-column="37" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -119,6 +139,11 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>column &lt;</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -132,13 +157,19 @@
       <list>
         <option value="$PROJECT_DIR$/src/pl/janyst/Game/EvaluationFunction.java" />
         <option value="$PROJECT_DIR$/src/pl/janyst/Game/Minimax.java" />
-        <option value="$PROJECT_DIR$/src/pl/janyst/Algorithms/Minimax.java" />
-        <option value="$PROJECT_DIR$/src/pl/janyst/Main.java" />
-        <option value="$PROJECT_DIR$/src/pl/janyst/Algorithms/EvaluationFunction.java" />
         <option value="$PROJECT_DIR$/src/pl/janyst/Game/GomokuTests.java" />
         <option value="$PROJECT_DIR$/src/pl/janyst/GUI/Gomoku.java" />
-        <option value="$PROJECT_DIR$/src/pl/janyst/Game/Gomoku.java" />
         <option value="$PROJECT_DIR$/src/pl/janyst/GUI/GomokuBoard.java" />
+        <option value="$PROJECT_DIR$/src/pl/janyst/Algorithms/EvaluationFunction.java" />
+        <option value="$PROJECT_DIR$/src/pl/janyst/Algorithms/Simple.java" />
+        <option value="$PROJECT_DIR$/src/pl/janyst/Algorithms/SimpleDef.java" />
+        <option value="$PROJECT_DIR$/src/pl/janyst/Algorithms/Random.java" />
+        <option value="$PROJECT_DIR$/src/pl/janyst/Algorithms/RandomScore.java" />
+        <option value="$PROJECT_DIR$/src/pl/janyst/Algorithms/EmptyNeigboursFirst.java" />
+        <option value="$PROJECT_DIR$/src/pl/janyst/Game/Gomoku.java" />
+        <option value="$PROJECT_DIR$/src/pl/janyst/Algorithms/ClusterNeighbours.java" />
+        <option value="$PROJECT_DIR$/src/pl/janyst/Algorithms/Minimax.java" />
+        <option value="$PROJECT_DIR$/src/pl/janyst/Main.java" />
       </list>
     </option>
   </component>
@@ -149,10 +180,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1616" />
-    <option name="height" value="876" />
+    <option name="x" value="487" />
+    <option name="y" value="2" />
+    <option name="width" value="1117" />
+    <option name="height" value="825" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -841,7 +872,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1494085054895</updated>
-      <workItem from="1494085064774" duration="27872000" />
+      <workItem from="1494085064774" duration="50407000" />
     </task>
     <servers />
   </component>
@@ -878,28 +909,28 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27872000" />
+    <option name="totallyTimeSpent" value="50407000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
+    <frame x="487" y="2" width="1117" height="825" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32898173" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.075718015" sideWeight="0.495" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23368146" sideWeight="0.304375" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19020979" sideWeight="0.30881017" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23368146" sideWeight="0.695625" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19020979" sideWeight="0.6911898" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24250682" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32898173" sideWeight="0.4975" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -959,25 +990,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pl/janyst/Algorithms/EvaluationFunction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="37" lean-forward="false" selection-start-line="5" selection-start-column="37" selection-end-line="5" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pl/janyst/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="3" lean-forward="false" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pl/janyst/Game/GomokuTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
+        <state relative-caret-position="969">
           <caret line="57" column="79" lean-forward="false" selection-start-line="57" selection-start-column="79" selection-end-line="57" selection-end-column="79" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -985,52 +1000,109 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pl/janyst/Algorithms/Minimax.java">
+    <entry file="file://$PROJECT_DIR$/src/pl/janyst/Algorithms/Simple.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="6" selection-end-column="3" />
+        <state relative-caret-position="493">
+          <caret line="41" column="5" lean-forward="true" selection-start-line="11" selection-start-column="4" selection-end-line="41" selection-end-column="5" />
           <folding>
-            <element signature="e#256#257#0" expanded="true" />
-            <element signature="e#316#317#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pl/janyst/Algorithms/RandomScore.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="40" lean-forward="true" selection-start-line="13" selection-start-column="40" selection-end-line="13" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pl/janyst/Game/Gomoku.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="55" selection-end-column="9" />
+        <state relative-caret-position="296">
+          <caret line="90" column="0" lean-forward="false" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#345#346#0" expanded="true" />
-            <element signature="e#369#370#0" expanded="true" />
-            <element signature="e#527#528#0" expanded="true" />
-            <element signature="e#554#555#0" expanded="true" />
-            <element signature="e#587#588#0" expanded="true" />
-            <element signature="e#615#616#0" expanded="true" />
-            <element signature="e#670#671#0" expanded="true" />
-            <element signature="e#711#712#0" expanded="true" />
-            <element signature="e#780#781#0" expanded="true" />
-            <element signature="e#824#825#0" expanded="true" />
-            <element signature="e#854#855#0" expanded="true" />
-            <element signature="e#883#884#0" expanded="true" />
-            <element signature="e#924#925#0" expanded="true" />
-            <element signature="e#960#961#0" expanded="true" />
-            <element signature="e#1376#1377#0" expanded="true" />
-            <element signature="e#1422#1423#0" expanded="true" />
+            <element signature="e#396#397#0" expanded="true" />
+            <element signature="e#420#421#0" expanded="true" />
+            <element signature="e#714#715#0" expanded="true" />
+            <element signature="e#741#742#0" expanded="true" />
+            <element signature="e#774#775#0" expanded="true" />
+            <element signature="e#802#803#0" expanded="true" />
+            <element signature="e#857#858#0" expanded="true" />
+            <element signature="e#898#899#0" expanded="true" />
+            <element signature="e#967#968#0" expanded="true" />
+            <element signature="e#1011#1012#0" expanded="true" />
+            <element signature="e#1041#1042#0" expanded="true" />
+            <element signature="e#1070#1071#0" expanded="true" />
+            <element signature="e#1111#1112#0" expanded="true" />
+            <element signature="e#1147#1148#0" expanded="true" />
+            <element signature="e#1181#1182#0" expanded="true" />
+            <element signature="e#1212#1213#0" expanded="true" />
+            <element signature="e#1259#1260#0" expanded="true" />
+            <element signature="e#1299#1300#0" expanded="true" />
+            <element signature="e#2776#2777#0" expanded="true" />
+            <element signature="e#2814#2815#0" expanded="true" />
+            <element signature="e#2846#2847#0" expanded="true" />
+            <element signature="e#2888#2889#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pl/janyst/Algorithms/EvaluationFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="26" lean-forward="false" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pl/janyst/Algorithms/ClusterNeighbours.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="17" column="96" lean-forward="false" selection-start-line="17" selection-start-column="96" selection-end-line="17" selection-end-column="96" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pl/janyst/Algorithms/Minimax.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="74" column="88" lean-forward="false" selection-start-line="74" selection-start-column="88" selection-end-line="74" selection-end-column="88" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2838#2839#0" expanded="true" />
+            <element signature="e#2896#2897#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pl/janyst/Algorithms/SimpleDef.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="16" column="53" lean-forward="true" selection-start-line="16" selection-start-column="53" selection-end-line="16" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pl/janyst/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pl/janyst/GUI/GomokuBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="115" column="39" lean-forward="false" selection-start-line="115" selection-start-column="39" selection-end-line="115" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#966#967#0" expanded="true" />
-            <element signature="e#990#991#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-118">
+          <caret line="27" column="6" lean-forward="false" selection-start-line="27" selection-start-column="6" selection-end-line="27" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>

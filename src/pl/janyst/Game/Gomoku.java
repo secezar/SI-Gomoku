@@ -14,6 +14,8 @@ public class Gomoku {
     private int size;
     private int [][] board;
     private int player;
+    private int moves;
+    private int[] vertexes;
 
     public Gomoku() {
         this(15);
@@ -23,6 +25,8 @@ public class Gomoku {
         this.size = size;
         this.board = new int[size][size];
         this.player = 1;
+        this.moves = 0;
+        this.vertexes = new int[] {Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE};
     }
 
     public int getSize() {
@@ -49,22 +53,62 @@ public class Gomoku {
         this.player = player;
     }
 
-    public void takeTurn(int row, int column) {
-        makeMove(row, column);
-        if(isWin(row, column)) {
-            JOptionPane.showMessageDialog(null, "The player " + player + " win.");
-        }
-        switchPlayer();
+    public int[] getVertexes() {
+        return vertexes;
     }
 
-    private void makeMove(int row, int column) {
+    public void setVertexes(int[] vertexes) {
+        this.vertexes = vertexes;
+    }
+
+    public void takeTurn(int row, int column) {
+        boolean isMoved = makeMove(row, column);
+        if(isWin(row, column)) {
+            JOptionPane.showMessageDialog(null, "The player " + player + " win.");
+            board = new int[size][size];
+            this.player = 1;
+            this.moves = 0;
+            this.vertexes = new int[] {Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE};
+        }
+        else if(moves == size*size+1) {
+            JOptionPane.showMessageDialog(null, "DRAW!");
+            board = new int[size][size];
+            this.player = 1;
+            this.moves = 0;
+            this.vertexes = new int[] {Integer.MAX_VALUE, Integer.MIN_VALUE, Integer.MAX_VALUE, Integer.MIN_VALUE};
+        }
+        if (isMoved)
+            switchPlayer();
+    }
+
+    private boolean makeMove(int row, int column) {
+        boolean isMoved = false;
         if (board[row][column] == 0) {
             board[row][column] = player;
+            updateVertexes(row, column);
+            moves++;
+            isMoved = true;
         }
+        return isMoved;
+    }
+
+    private void updateVertexes(int row, int column) {
+        if (row < vertexes[0])
+            vertexes[0] = row;
+        else if (row > vertexes[1])
+            vertexes[1] = row;
+        if (column < vertexes[2])
+            vertexes[2] = column;
+        else if (column > vertexes[3])
+            vertexes[3] = column;
     }
 
     public void switchPlayer() {
-        player = (player == 1) ? 2 : 1;
+        player = getOpponent();
+    }
+
+    public int getOpponent() {
+        return player == 1 ? 2 : 1;
     }
 
     public boolean isWin(int row, int column) {
