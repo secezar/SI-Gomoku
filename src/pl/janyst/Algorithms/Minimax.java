@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Piotr Janyst on 2017-05-06.
  */
-public class Minimax {
+public class Minimax implements ArtificalIntelligence {
 
     EvaluationFunction evaluationFunction;
     Gomoku gomoku;

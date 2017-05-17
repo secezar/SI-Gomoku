@@ -1,5 +1,6 @@
 package pl.janyst;
 
+import pl.janyst.GUI.ConfigurationPanel;
 import pl.janyst.GUI.GomokuPanel;
 
 import javax.swing.*;
@@ -10,15 +11,16 @@ import javax.swing.*;
 public class Main {
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame();
-
-        final int FRAME_WIDTH = 1000;
-        final int FRAME_HEIGHT = 1000;
-        frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        frame.setTitle("GomokuBoard Game");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        GomokuPanel panel = new GomokuPanel(15);
-        frame.add(panel);
-        frame.setVisible(true);
+        //JFrame frame = new JFrame();
+        ConfigurationPanel configurationPanel = new ConfigurationPanel();
+        configurationPanel.setVisible(true);
+//        final int FRAME_WIDTH = 1000;
+//        final int FRAME_HEIGHT = 1000;
+//        frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+//        frame.setTitle("GomokuBoard Game");
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        GomokuPanel panel = new GomokuPanel(15);
+//        frame.add(panel);
+//        frame.setVisible(true);
     }
 }

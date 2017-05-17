@@ -1,5 +1,6 @@
 package pl.janyst.GUI;
 
+import pl.janyst.Algorithms.ArtificalIntelligence;
 import pl.janyst.Game.Gomoku;
 
 import javax.swing.*;
@@ -14,8 +15,18 @@ import java.awt.geom.Rectangle2D;
 public class GomokuPanel extends JPanel {
     private final int MARGIN = 5;
     private final double PIECE_FRAC = 0.9;
+
     Gomoku gomoku;
+    ArtificalIntelligence ai;
+    ArtificalIntelligence ai2;
+
     private static int GAME_STATE;
+    private static int GAME_MODE;
+
+    private static final int HUMAN_VS_HUMAN = 1;
+    private static final int HUMAN_VS_MINIMAX = 2;
+    private static final int MINIMAX_VS_MINIMAX = 3;
+
     private static final int PLAY = 1;
     private static final int FINISH = 2;
     private static final int DRAW = 3;
@@ -25,10 +36,23 @@ public class GomokuPanel extends JPanel {
     }
 
     public GomokuPanel(int size) {
-        super();
         gomoku = new Gomoku(15);
         addMouseListener(new GomokuListener());
         GAME_STATE = PLAY;
+        GAME_MODE = HUMAN_VS_HUMAN;
+    }
+
+    public GomokuPanel(int size, ArtificalIntelligence ai) {
+        gomoku = new Gomoku(15);
+        this.ai = ai;
+        GAME_MODE = HUMAN_VS_MINIMAX;
+    }
+
+    public GomokuPanel(int size, ArtificalIntelligence ai, ArtificalIntelligence ai2) {
+        gomoku = new Gomoku(15);
+        this.ai = ai;
+        this.ai2 = ai2;
+        GAME_MODE = MINIMAX_VS_MINIMAX;
     }
 
     class GomokuListener extends MouseAdapter {

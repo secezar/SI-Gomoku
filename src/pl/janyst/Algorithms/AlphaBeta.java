@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Piotr Janyst on 2017-05-09.
  */
-public class AlphaBeta {
+public class AlphaBeta implements ArtificalIntelligence {
     EvaluationFunction evaluationFunction;
     Gomoku gomoku;
     int depth;
