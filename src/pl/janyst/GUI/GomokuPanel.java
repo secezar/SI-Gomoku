@@ -20,35 +20,26 @@ public class GomokuPanel extends JPanel {
     ArtificalIntelligence ai;
     ArtificalIntelligence ai2;
 
-    private static int GAME_STATE;
     private static int GAME_MODE;
 
     private static final int HUMAN_VS_HUMAN = 1;
     private static final int HUMAN_VS_MINIMAX = 2;
     private static final int MINIMAX_VS_MINIMAX = 3;
 
-    private static final int PLAY = 1;
-    private static final int FINISH = 2;
-    private static final int DRAW = 3;
 
     public GomokuPanel() {
-        this(15);
-    }
-
-    public GomokuPanel(int size) {
         gomoku = new Gomoku(15);
         addMouseListener(new GomokuListener());
-        GAME_STATE = PLAY;
         GAME_MODE = HUMAN_VS_HUMAN;
     }
 
-    public GomokuPanel(int size, ArtificalIntelligence ai) {
+    public GomokuPanel(ArtificalIntelligence ai) {
         gomoku = new Gomoku(15);
         this.ai = ai;
         GAME_MODE = HUMAN_VS_MINIMAX;
     }
 
-    public GomokuPanel(int size, ArtificalIntelligence ai, ArtificalIntelligence ai2) {
+    public GomokuPanel(ArtificalIntelligence ai, ArtificalIntelligence ai2) {
         gomoku = new Gomoku(15);
         this.ai = ai;
         this.ai2 = ai2;
@@ -57,6 +48,24 @@ public class GomokuPanel extends JPanel {
 
     class GomokuListener extends MouseAdapter {
         public void mouseClicked(MouseEvent e) {
+
+            if (GAME_MODE == HUMAN_VS_HUMAN | (GAME_MODE == HUMAN_VS_MINIMAX & gomoku.getPlayer() == 1)) {
+                humanTakeTurn(e);
+            }
+            else {
+                int gomokuSize = gomoku.getSize();
+                if (gomoku.getPlayer() == 2) {
+                    aiTakeTurn(gomokuSize, ai);
+                }
+                else {
+                    aiTakeTurn(gomokuSize, ai2);
+                }
+            }
+
+            repaint();
+        }
+
+        private void humanTakeTurn(MouseEvent e) {
             double panelWidth = getWidth();
             double panelHeight = getHeight();
             double boardWidth = Math.min(panelWidth, panelHeight) - 2 * MARGIN;
@@ -64,31 +73,47 @@ public class GomokuPanel extends JPanel {
             double squareWidth = boardWidth / gomokuSize;
             double xLeft = (panelWidth - boardWidth) / 2 + MARGIN;
             double yTop = (panelHeight - boardWidth) / 2 + MARGIN;
+
+
             int column = (int) Math.round((e.getX() - xLeft) / squareWidth - 0.5);
             int row = (int) Math.round((e.getY() - yTop) / squareWidth - 0.5);
-            try {
-                boolean isMoved = gomoku.makeMove(row,column);
-                boolean win = gomoku.isWin(row, column);
-                boolean draw = gomoku.getMoves() == gomokuSize * gomokuSize + 1;
 
-                if(win) {
-                    JOptionPane.showMessageDialog(null, "The player " + gomoku.getPlayer() + " win.");
-                    gomoku = new Gomoku(gomokuSize);
-                }
-                else {
-                    if(draw) {
-                        JOptionPane.showMessageDialog(null, "DRAW!");
-                        gomoku = new Gomoku(gomokuSize);
-                    }
-                }
-                if (isMoved && !win && !draw)
-                    gomoku.switchPlayer();
+            try {
+                takeTurn(gomokuSize, column, row);
             }
             catch(IndexOutOfBoundsException ex){
                 System.out.println("Border clicked");
             }
+        }
 
-            repaint();
+        private void takeTurn(int gomokuSize, int column, int row) {
+            boolean isMoved = gomoku.makeMove(row,column);
+            boolean win = gomoku.isWin(row, column);
+            boolean draw = gomoku.getMoves() == gomokuSize * gomokuSize;
+
+            tryEndGame(gomokuSize, win, draw);
+            if (isMoved && !win && !draw)
+                gomoku.switchPlayer();
+        }
+
+        private void aiTakeTurn(int gomokuSize, ArtificalIntelligence ai) {
+            int[] moves = ai.move();
+            int row = moves[0];
+            int column = moves[1];
+            takeTurn(gomokuSize, column, row);
+        }
+
+        private void tryEndGame(int gomokuSize, boolean win, boolean draw) {
+            if(win) {
+                JOptionPane.showMessageDialog(null, "The player " + gomoku.getPlayer() + " win.");
+                gomoku = new Gomoku(gomokuSize);
+            }
+            else {
+                if(draw) {
+                    JOptionPane.showMessageDialog(null, "DRAW!");
+                    gomoku = new Gomoku(gomokuSize);
+                }
+            }
         }
     }
 

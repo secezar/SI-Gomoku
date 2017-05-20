@@ -19,7 +19,6 @@ public class ConfigurationPanel extends JFrame{
             pane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         }
 
-        JButton button;
         pane.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         if (shouldFill) {
@@ -27,7 +26,7 @@ public class ConfigurationPanel extends JFrame{
             c.fill = GridBagConstraints.HORIZONTAL;
         }
 
-        button = new JButton("Human vs Human");
+        JButton button = new JButton("Human vs Human");
 
         if (shouldWeightX) {
             c.weightx = 0.5;
@@ -36,6 +35,19 @@ public class ConfigurationPanel extends JFrame{
         c.gridx = 0;
         c.gridy = 0;
         pane.add(button, c);
+
+        button.addActionListener(e -> {
+            // display/center the jdialog when the button is pressed
+            final int FRAME_WIDTH = 1000;
+            final int FRAME_HEIGHT = 1000;
+            JFrame frame = new JFrame();
+            frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+            frame.setTitle("GomokuBoard Game");
+            frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+            GomokuPanel panel = new GomokuPanel();
+            frame.add(panel);
+            frame.setVisible(true);
+        });
 
         JTextArea difficulty = new JTextArea("Difficulty");
         difficulty.setEnabled(false);
@@ -64,21 +76,30 @@ public class ConfigurationPanel extends JFrame{
         c.gridy = 0;
         pane.add(clusterHeuristicWeight, c);
 
-        JTextArea defensiveHeuristicWeight = new JTextArea("Defensive Heuristic Weight");
-        defensiveHeuristicWeight.setEnabled(false);
-        defensiveHeuristicWeight.setFont(defensiveHeuristicWeight.getFont().deriveFont(10f));
-        defensiveHeuristicWeight.setVisible(true);
+        JTextArea neighbourHeuristicWeight = new JTextArea("Neighbour Heuristic Weight");
+        neighbourHeuristicWeight.setEnabled(false);
+        neighbourHeuristicWeight.setFont(neighbourHeuristicWeight.getFont().deriveFont(10f));
+        neighbourHeuristicWeight.setVisible(true);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 5;
         c.gridy = 0;
-        pane.add(defensiveHeuristicWeight, c);
+        pane.add(neighbourHeuristicWeight, c);
+
+        JTextArea orderMoveHeuristics = new JTextArea("Order Move Heuristics");
+        orderMoveHeuristics.setEnabled(false);
+        orderMoveHeuristics.setFont(orderMoveHeuristics.getFont().deriveFont(10f));
+        orderMoveHeuristics.setVisible(true);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 6;
+        c.gridy = 0;
+        pane.add(orderMoveHeuristics, c);
 
 
-        button = new JButton("Human vs Minmax");
+        JButton button2 = new JButton("Human vs Minmax");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 1;
-        pane.add(button, c);
+        pane.add(button2, c);
 
         JCheckBox checkBox = new JCheckBox("alpha-beta");
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -150,11 +171,19 @@ public class ConfigurationPanel extends JFrame{
         c.gridy = 1;
         pane.add(sliderHeuristicNeighboursFirstAI, c);
 
-        button = new JButton("Minmax vs Minmax");
+        String[] data = {"one", "two", "three", "four"};
+        final JComboBox<String> cb = new JComboBox<>(data);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 6;
+        c.gridy = 1;
+        pane.add(cb, c);
+        cb.setVisible(true);
+
+        JButton button3 = new JButton("Minmax vs Minmax");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 2;
-        pane.add(button, c);
+        pane.add(button3, c);
 
         JCheckBox checkBox2 = new JCheckBox("alpha-beta");
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -224,6 +253,14 @@ public class ConfigurationPanel extends JFrame{
         c.gridx = 5;
         c.gridy = 2;
         pane.add(sliderHeuristicNeighboursSecondAI, c);
+
+        String[] data2 = {"one", "two", "three", "four"};
+        final JComboBox<String> cb2 = new JComboBox<>(data);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 6;
+        c.gridy = 2;
+        pane.add(cb2, c);
+        cb2.setVisible(true);
     }
 
     /**
@@ -234,7 +271,7 @@ public class ConfigurationPanel extends JFrame{
     private static void createAndShowGUI() {
         //Create and set up the window.
         JFrame frame = new JFrame("GridBagLayoutDemo");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setTitle("Gomoku Configuration Panel");
         frame.setResizable(false);
         //Set up the content pane.
