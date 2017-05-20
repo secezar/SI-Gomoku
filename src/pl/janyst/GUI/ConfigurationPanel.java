@@ -1,5 +1,11 @@
 package pl.janyst.GUI;
 
+import pl.janyst.Algorithms.AlphaBeta;
+import pl.janyst.Algorithms.ArtificalIntelligence;
+import pl.janyst.Algorithms.Minimax;
+import pl.janyst.Algorithms.MoveHeuristicCombined;
+import pl.janyst.Game.Gomoku;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -7,7 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by Jola on 2017-05-16.
+ * Created by Piotr Janyst on 2017-05-16.
  */
 public class ConfigurationPanel extends JFrame{
     final static boolean shouldFill = true;
@@ -35,19 +41,6 @@ public class ConfigurationPanel extends JFrame{
         c.gridx = 0;
         c.gridy = 0;
         pane.add(button, c);
-
-        button.addActionListener(e -> {
-            // display/center the jdialog when the button is pressed
-            final int FRAME_WIDTH = 1000;
-            final int FRAME_HEIGHT = 1000;
-            JFrame frame = new JFrame();
-            frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-            frame.setTitle("GomokuBoard Game");
-            frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-            GomokuPanel panel = new GomokuPanel();
-            frame.add(panel);
-            frame.setVisible(true);
-        });
 
         JTextArea difficulty = new JTextArea("Difficulty");
         difficulty.setEnabled(false);
@@ -101,16 +94,17 @@ public class ConfigurationPanel extends JFrame{
         c.gridy = 1;
         pane.add(button2, c);
 
-        JCheckBox checkBox = new JCheckBox("alpha-beta");
+        JCheckBox alphaBetaFirstAI = new JCheckBox("alpha-beta");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
         c.gridy = 1;
-        pane.add(checkBox, c);
+        pane.add(alphaBetaFirstAI, c);
 
         JSlider sliderDepthFirstAI = new JSlider();
 
         sliderDepthFirstAI.setToolTipText("Depth of first AI");
-        sliderDepthFirstAI.setMinimum(1);
+        sliderDepthFirstAI.setMinimum(0);
+        sliderDepthFirstAI.setValue(1);
         sliderDepthFirstAI.setMaximum(6);
         sliderDepthFirstAI.setMajorTickSpacing(1);
         sliderDepthFirstAI.setPaintTicks(true);
@@ -126,7 +120,8 @@ public class ConfigurationPanel extends JFrame{
         JSlider sliderHeuristicLineFirstAI = new JSlider();
 
         sliderHeuristicLineFirstAI.setToolTipText("Line Heuristic weight");
-        sliderHeuristicLineFirstAI.setMinimum(1);
+        sliderHeuristicLineFirstAI.setMinimum(0);
+        sliderHeuristicLineFirstAI.setValue(1);
         sliderHeuristicLineFirstAI.setMaximum(6);
         sliderHeuristicLineFirstAI.setMajorTickSpacing(1);
         sliderHeuristicLineFirstAI.setPaintTicks(true);
@@ -142,7 +137,8 @@ public class ConfigurationPanel extends JFrame{
         JSlider sliderHeuristicClusterFirstAI = new JSlider();
 
         sliderHeuristicClusterFirstAI.setToolTipText("Cluster Heuristic weight");
-        sliderHeuristicClusterFirstAI.setMinimum(1);
+        sliderHeuristicClusterFirstAI.setMinimum(0);
+        sliderHeuristicClusterFirstAI.setValue(0);
         sliderHeuristicClusterFirstAI.setMaximum(6);
         sliderHeuristicClusterFirstAI.setMajorTickSpacing(1);
         sliderHeuristicClusterFirstAI.setPaintTicks(true);
@@ -158,7 +154,8 @@ public class ConfigurationPanel extends JFrame{
         JSlider sliderHeuristicNeighboursFirstAI = new JSlider();
 
         sliderHeuristicNeighboursFirstAI.setToolTipText("Neighbour Heuristic weight");
-        sliderHeuristicNeighboursFirstAI.setMinimum(1);
+        sliderHeuristicNeighboursFirstAI.setMinimum(0);
+        sliderHeuristicNeighboursFirstAI.setValue(0);
         sliderHeuristicNeighboursFirstAI.setMaximum(6);
         sliderHeuristicNeighboursFirstAI.setMajorTickSpacing(1);
         sliderHeuristicNeighboursFirstAI.setPaintTicks(true);
@@ -185,16 +182,17 @@ public class ConfigurationPanel extends JFrame{
         c.gridy = 2;
         pane.add(button3, c);
 
-        JCheckBox checkBox2 = new JCheckBox("alpha-beta");
+        JCheckBox alphaBetaSecondAI = new JCheckBox("alpha-beta");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
         c.gridy = 2;
-        pane.add(checkBox2, c);
+        pane.add(alphaBetaSecondAI, c);
 
         JSlider sliderDepthSecondAI = new JSlider();
 
         sliderDepthSecondAI.setToolTipText("Depth of second AI");
-        sliderDepthSecondAI.setMinimum(1);
+        sliderDepthSecondAI.setMinimum(0);
+        sliderDepthSecondAI.setValue(1);
         sliderDepthSecondAI.setMaximum(6);
         sliderDepthSecondAI.setMajorTickSpacing(1);
         sliderDepthSecondAI.setPaintTicks(true);
@@ -209,7 +207,8 @@ public class ConfigurationPanel extends JFrame{
         JSlider sliderHeuristicLineSecondAI = new JSlider();
 
         sliderHeuristicLineSecondAI.setToolTipText("Line Heuristic weight");
-        sliderHeuristicLineSecondAI.setMinimum(1);
+        sliderHeuristicLineSecondAI.setMinimum(0);
+        sliderHeuristicLineSecondAI.setValue(1);
         sliderHeuristicLineSecondAI.setMaximum(6);
         sliderHeuristicLineSecondAI.setMajorTickSpacing(1);
         sliderHeuristicLineSecondAI.setPaintTicks(true);
@@ -225,7 +224,8 @@ public class ConfigurationPanel extends JFrame{
         JSlider sliderHeuristicClusterSecondAI = new JSlider();
 
         sliderHeuristicClusterSecondAI.setToolTipText("Cluster Heuristic weight");
-        sliderHeuristicClusterSecondAI.setMinimum(1);
+        sliderHeuristicClusterSecondAI.setMinimum(0);
+        sliderHeuristicClusterSecondAI.setValue(0);
         sliderHeuristicClusterSecondAI.setMaximum(6);
         sliderHeuristicClusterSecondAI.setMajorTickSpacing(1);
         sliderHeuristicClusterSecondAI.setPaintTicks(true);
@@ -241,7 +241,8 @@ public class ConfigurationPanel extends JFrame{
         JSlider sliderHeuristicNeighboursSecondAI = new JSlider();
 
         sliderHeuristicNeighboursSecondAI.setToolTipText("Neighbour Heuristic weight");
-        sliderHeuristicNeighboursSecondAI.setMinimum(1);
+        sliderHeuristicNeighboursSecondAI.setMinimum(0);
+        sliderHeuristicNeighboursSecondAI.setValue(0);
         sliderHeuristicNeighboursSecondAI.setMaximum(6);
         sliderHeuristicNeighboursSecondAI.setMajorTickSpacing(1);
         sliderHeuristicNeighboursSecondAI.setPaintTicks(true);
@@ -255,12 +256,94 @@ public class ConfigurationPanel extends JFrame{
         pane.add(sliderHeuristicNeighboursSecondAI, c);
 
         String[] data2 = {"one", "two", "three", "four"};
-        final JComboBox<String> cb2 = new JComboBox<>(data);
+        final JComboBox<String> cb2 = new JComboBox<>(data2);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 6;
         c.gridy = 2;
         pane.add(cb2, c);
         cb2.setVisible(true);
+
+        button.addActionListener(e -> {
+            // display/center the jdialog when the button is pressed
+            final int FRAME_WIDTH = 1000;
+            final int FRAME_HEIGHT = 1000;
+            JFrame frame = new JFrame();
+            frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+            frame.setTitle("GomokuBoard Game");
+            frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+            GomokuPanel panel = new GomokuPanel();
+            frame.add(panel);
+            frame.setVisible(true);
+        });
+
+        button2.addActionListener(e -> {
+            // display/center the jdialog when the button is pressed
+            final int FRAME_WIDTH = 1000;
+            final int FRAME_HEIGHT = 1000;
+            JFrame frame = new JFrame();
+            frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+            frame.setTitle("GomokuBoard Game");
+            frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+            ArtificalIntelligence ai;
+
+            boolean alphaBetaFirstAISelected = alphaBetaFirstAI.isSelected();
+            int sliderHeuristicLineFirstAIValue = sliderHeuristicLineFirstAI.getValue();
+            int sliderHeuristicClusterFirstAIValue = sliderHeuristicClusterFirstAI.getValue();
+            int sliderHeuristicNeighboursFirstAIValue = sliderHeuristicNeighboursFirstAI.getValue();
+            int sliderDepthFirstAIValue = sliderDepthFirstAI.getValue();
+            if (alphaBetaFirstAISelected) {
+                ai = new AlphaBeta(new MoveHeuristicCombined(sliderHeuristicLineFirstAIValue, sliderHeuristicClusterFirstAIValue, sliderHeuristicNeighboursFirstAIValue), sliderDepthFirstAIValue);
+            }
+            else {
+                ai = new Minimax(new MoveHeuristicCombined(sliderHeuristicLineFirstAIValue, sliderHeuristicClusterFirstAIValue, sliderHeuristicNeighboursFirstAIValue), sliderDepthFirstAIValue);
+            }
+            GomokuPanel panel = new GomokuPanel(ai);
+            frame.add(panel);
+            frame.setVisible(true);
+            System.out.println(String.format("LAUNCHED WITH: %n AlphaBeta: %s %n Heur Weights: (%d,%d,%d) %n Depth: %d %n", alphaBetaFirstAISelected, sliderHeuristicLineFirstAIValue, sliderHeuristicClusterFirstAIValue, sliderHeuristicNeighboursFirstAIValue, sliderDepthFirstAIValue));
+        });
+
+        button3.addActionListener(e -> {
+            // display/center the jdialog when the button is pressed
+            final int FRAME_WIDTH = 1000;
+            final int FRAME_HEIGHT = 1000;
+            JFrame frame = new JFrame();
+            frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+            frame.setTitle("GomokuBoard Game");
+            frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+            ArtificalIntelligence ai;
+            ArtificalIntelligence ai2;
+
+            boolean alphaBetaFirstAISelected = alphaBetaFirstAI.isSelected();
+            int sliderHeuristicLineFirstAIValue = sliderHeuristicLineFirstAI.getValue();
+            int sliderHeuristicClusterFirstAIValue = sliderHeuristicClusterFirstAI.getValue();
+            int sliderHeuristicNeighboursFirstAIValue = sliderHeuristicNeighboursFirstAI.getValue();
+            int sliderDepthFirstAIValue = sliderDepthFirstAI.getValue();
+            if (alphaBetaFirstAISelected) {
+                ai = new AlphaBeta(new MoveHeuristicCombined(sliderHeuristicLineFirstAIValue, sliderHeuristicClusterFirstAIValue, sliderHeuristicNeighboursFirstAIValue), sliderDepthFirstAIValue);
+            }
+            else {
+                ai = new Minimax(new MoveHeuristicCombined(sliderHeuristicLineFirstAIValue, sliderHeuristicClusterFirstAIValue, sliderHeuristicNeighboursFirstAIValue), sliderDepthFirstAIValue);
+            }
+            System.out.println(String.format("LAUNCHED FIRST AI WITH: %n AlphaBeta: %s %n Heur Weights: (%d,%d,%d) %n Depth: %d %n", alphaBetaFirstAISelected, sliderHeuristicLineFirstAIValue, sliderHeuristicClusterFirstAIValue, sliderHeuristicNeighboursFirstAIValue, sliderDepthFirstAIValue));
+
+            boolean alphaBetaSecondAISelected = alphaBetaSecondAI.isSelected();
+            int sliderHeuristicLineSecondAIValue = sliderHeuristicLineSecondAI.getValue();
+            int sliderHeuristicClusterSecondAIValue = sliderHeuristicClusterSecondAI.getValue();
+            int sliderHeuristicNeighboursSecondAIValue = sliderHeuristicNeighboursSecondAI.getValue();
+            int sliderDepthSecondAIValue = sliderDepthSecondAI.getValue();
+            if (alphaBetaSecondAISelected) {
+                ai2 = new AlphaBeta(new MoveHeuristicCombined(sliderHeuristicLineSecondAIValue, sliderHeuristicClusterSecondAIValue, sliderHeuristicNeighboursSecondAIValue), sliderDepthSecondAIValue);
+            }
+            else {
+                ai2 = new Minimax(new MoveHeuristicCombined(sliderHeuristicLineSecondAIValue, sliderHeuristicClusterSecondAIValue, sliderHeuristicNeighboursSecondAIValue), sliderDepthSecondAIValue);
+            }
+            System.out.println(String.format("LAUNCHED SECOND AI WITH: %n AlphaBeta: %s %n Heur Weights: (%d,%d,%d) %n Depth: %d %n", alphaBetaSecondAISelected, sliderHeuristicLineSecondAIValue, sliderHeuristicClusterSecondAIValue, sliderHeuristicNeighboursSecondAIValue, sliderDepthSecondAIValue));
+
+            GomokuPanel panel = new GomokuPanel(ai, ai2);
+            frame.add(panel);
+            frame.setVisible(true);
+        });
     }
 
     /**
@@ -271,7 +354,7 @@ public class ConfigurationPanel extends JFrame{
     private static void createAndShowGUI() {
         //Create and set up the window.
         JFrame frame = new JFrame("GridBagLayoutDemo");
-        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Gomoku Configuration Panel");
         frame.setResizable(false);
         //Set up the content pane.

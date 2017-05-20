@@ -71,6 +71,7 @@ public class Gomoku {
 
     public boolean makeMove(int row, int column) {
         boolean isMoved = false;
+        System.out.println(row + " " + column);
         if (board[row][column] == 0) {
             board[row][column] = player;
             updateVertexes(row, column);
@@ -81,14 +82,23 @@ public class Gomoku {
     }
 
     private void updateVertexes(int row, int column) {
-        if (row < vertexes[0])
+        if (row < vertexes[0]) {
+            System.out.println(String.format("Old vertex[0] = %d, new = %d", vertexes[0], row));
             vertexes[0] = row;
-        else if (row > vertexes[1])
+        }
+        else if (row > vertexes[1]) {
+            System.out.println(String.format("Old vertex[1] = %d, new = %d", vertexes[1], row));
             vertexes[1] = row;
-        if (column < vertexes[2])
+        }
+        if (column < vertexes[2]) {
+            System.out.println(String.format("Old vertex[2] = %d, new = %d", vertexes[2], column));
             vertexes[2] = column;
-        else if (column > vertexes[3])
+        }
+        else if (column > vertexes[3]) {
+            System.out.println(String.format("Old vertex[3] = %d, new = %d", vertexes[3], column));
             vertexes[3] = column;
+        }
+        System.out.printf("***VERTEXES: (%d, %d), (%d, %d)***%n", vertexes[0], vertexes[1], vertexes[2], vertexes[3]);
     }
 
     public void switchPlayer() {
@@ -110,23 +120,10 @@ public class Gomoku {
         boolean result = false;
         int neighbourList = 0;
         for (ArrayList<Integer> neighbour: neighbours) {
-            if (neighbourList == 0)
-                System.out.println("Row neighbour!");
-            else if (neighbourList == 1)
-                System.out.println("Crossleft neighbour!");
-            else if (neighbourList == 2)
-                System.out.println("Column neighbour!");
-            else if (neighbourList == 3)
-                System.out.println("Crossright neighbour!");
-
             if (neighbour.size() >= 5)
                 for (int i = 0; i < neighbour.size()-4; i++) {
-                    System.out.println(neighbour.get(i) + " " + neighbour.get(i+1) + " " + neighbour.get(i+2) + " " + neighbour.get(i+3) + " " + neighbour.get(i+4));
-                    System.out.println(Objects.equals(neighbour.get(i), neighbour.get(i + 1)) && Objects.equals(neighbour.get(i), neighbour.get(i + 2))
-                            && Objects.equals(neighbour.get(i), neighbour.get(i + 3)) && Objects.equals(neighbour.get(i), neighbour.get(i + 4)));
                     if (Objects.equals(neighbour.get(i), neighbour.get(i + 1)) && Objects.equals(neighbour.get(i), neighbour.get(i + 2))
                             && Objects.equals(neighbour.get(i), neighbour.get(i + 3)) && Objects.equals(neighbour.get(i), neighbour.get(i + 4))) {
-                        System.out.println("WIN");
                         result = true;
                     }
                 }
@@ -159,13 +156,13 @@ public class Gomoku {
         }
         for (int i = -4; i < 5; i++) {
             try {
-        rowNeighbouring.add(board[row][column+i]);
+                rowNeighbouring.add(board[row][column+i]);
             } catch (ArrayIndexOutOfBoundsException e) {
             }
         }
         for (int i = -4; i < 5; i++) {
             try {
-        columnNeighbouring.add(board[row+i][column]);
+                columnNeighbouring.add(board[row+i][column]);
             } catch (ArrayIndexOutOfBoundsException e) {
             }
         }
@@ -182,5 +179,16 @@ public class Gomoku {
             boardColumn[i] = board[i][column];
         }
         return boardColumn;
+    }
+
+    public boolean isStart() {
+        boolean result = false;
+        for (int vertex : getVertexes()) {
+            if (vertex > 15 | vertex < -15) {
+                result = true;
+                break;
+            }
+        }
+        return result;
     }
 }

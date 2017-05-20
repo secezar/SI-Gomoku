@@ -9,6 +9,7 @@ import java.util.Objects;
  * Created by Piotr Janyst on 2017-05-09.
  */
 public class Simple implements EvaluationFunction {
+
     @Override
     public int evaluate(Gomoku gomoku) {
         int sum = 0;
@@ -18,18 +19,18 @@ public class Simple implements EvaluationFunction {
                 ArrayList<ArrayList<Integer>> lineNeighbours = gomoku.getNeighbouring(row,column);
                 for (ArrayList<Integer> neighbour: lineNeighbours) {
                     if (neighbour.size() >= 5) {
-                        for (int group = 4; group > 1; group--) {
+                        for (int group = 5; group > 1; group--) {
                             for (int i = 0; i < neighbour.size() - 4; i++) {
                                 boolean isGroup = true;
                                 for (int j = 1; isGroup && j < group; j++) {
                                     if (!Objects.equals(neighbour.get(i), neighbour.get(i + j)))
                                         isGroup = false;
                                 }
-                                if (isGroup) {
+                                if (isGroup && neighbour.get(i) != 0) {
                                     if (Objects.equals(neighbour.get(i), gomoku.getPlayer()))
-                                        sum += 4 ^ group;
+                                        sum += Math.pow(10, group);
                                     else
-                                        sum -= 4 ^ group;
+                                        sum -= Math.pow(100, group);
                                 }
                             }
                         }
@@ -37,6 +38,7 @@ public class Simple implements EvaluationFunction {
                 }
             }
         }
+        System.out.println(sum);
         return sum;
     }
 }

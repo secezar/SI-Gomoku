@@ -9,6 +9,7 @@ import java.util.Objects;
  * Created by Piotr Janyst on 2017-05-09.
  */
 public class SimpleDef implements EvaluationFunction {
+
     @Override
     public int evaluate(Gomoku gomoku) {
         int sum = 0;
@@ -27,9 +28,9 @@ public class SimpleDef implements EvaluationFunction {
                                 }
                                 if (isGroup) {
                                     if (Objects.equals(neighbour.get(i), gomoku.getPlayer()))
-                                        sum += 4 ^ group;
+                                        sum += Math.pow(4, group);
                                     else
-                                        sum -= 2 * (4 ^ group);
+                                        sum -= 2 * Math.pow(4, group);
                                 }
                             }
                         }

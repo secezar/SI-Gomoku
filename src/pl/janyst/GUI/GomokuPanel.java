@@ -13,6 +13,7 @@ import java.awt.geom.Rectangle2D;
 
 
 public class GomokuPanel extends JPanel {
+
     private final int MARGIN = 5;
     private final double PIECE_FRAC = 0.9;
 
@@ -35,14 +36,19 @@ public class GomokuPanel extends JPanel {
 
     public GomokuPanel(ArtificalIntelligence ai) {
         gomoku = new Gomoku(15);
+        ai.setGomoku(gomoku);
         this.ai = ai;
+        addMouseListener(new GomokuListener());
         GAME_MODE = HUMAN_VS_MINIMAX;
     }
 
     public GomokuPanel(ArtificalIntelligence ai, ArtificalIntelligence ai2) {
         gomoku = new Gomoku(15);
+        ai.setGomoku(gomoku);
+        ai2.setGomoku(gomoku);
         this.ai = ai;
         this.ai2 = ai2;
+        addMouseListener(new GomokuListener());
         GAME_MODE = MINIMAX_VS_MINIMAX;
     }
 
@@ -105,13 +111,23 @@ public class GomokuPanel extends JPanel {
 
         private void tryEndGame(int gomokuSize, boolean win, boolean draw) {
             if(win) {
+                System.out.println("------ win ------");
                 JOptionPane.showMessageDialog(null, "The player " + gomoku.getPlayer() + " win.");
                 gomoku = new Gomoku(gomokuSize);
+                if (ai != null)
+                    ai.setGomoku(gomoku);
+                if (ai2 != null)
+                    ai2.setGomoku(gomoku);
             }
             else {
                 if(draw) {
+                    System.out.println("++++++ draw +++++++");
                     JOptionPane.showMessageDialog(null, "DRAW!");
                     gomoku = new Gomoku(gomokuSize);
+                    if (ai != null)
+                        ai.setGomoku(gomoku);
+                    if (ai2 != null)
+                        ai2.setGomoku(gomoku);
                 }
             }
         }
