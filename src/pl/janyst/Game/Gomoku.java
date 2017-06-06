@@ -5,6 +5,7 @@ import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
 
 /**
@@ -35,6 +36,10 @@ public class Gomoku {
 
     public int[][] getBoard() {
         return board;
+    }
+
+    public void setBoard(int[][] board) {
+        this.board = board;
     }
 
     public int getBoardElement(int row, int column) {
@@ -86,7 +91,7 @@ public class Gomoku {
             System.out.println(String.format("Old vertex[0] = %d, new = %d", vertexes[0], row));
             vertexes[0] = row;
         }
-        else if (row > vertexes[1]) {
+        if (row > vertexes[1]) {
             System.out.println(String.format("Old vertex[1] = %d, new = %d", vertexes[1], row));
             vertexes[1] = row;
         }
@@ -94,7 +99,7 @@ public class Gomoku {
             System.out.println(String.format("Old vertex[2] = %d, new = %d", vertexes[2], column));
             vertexes[2] = column;
         }
-        else if (column > vertexes[3]) {
+        if (column > vertexes[3]) {
             System.out.println(String.format("Old vertex[3] = %d, new = %d", vertexes[3], column));
             vertexes[3] = column;
         }
@@ -190,5 +195,41 @@ public class Gomoku {
             }
         }
         return result;
+    }
+
+    public boolean isInBoard(int row, int column) {
+        return (row < getSize() && row >= 0 && column < getSize() && column >= 0);
+    }
+
+    public boolean isFilledElem(int row, int column) {
+        return getBoardElement(row, column) != 0;
+    }
+
+    public HashSet<int[]> getFilledElems(){
+    HashSet<int[]> filledElements = new HashSet<>();
+    int[] vertexes = getVertexes();
+        for (int row = vertexes[0]; row <= vertexes[1]; row++)
+            for (int column = vertexes[2]; column <= vertexes[3]; column++)
+                if (isFilledElem(row, column))
+                    filledElements.add(new int[] {row, column});
+        return filledElements;
+    }
+
+    public void printBoard() {
+        for (int row = 0; row < board.length; row++) {
+            for (int column = 0; column < board.length; column++) {
+                System.out.printf("%d ", board[row][column]);
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
+    public String ternaryBoard() {
+        StringBuilder board_ternary = new StringBuilder();
+        for (int[] aBoard : board)
+            for (int column = 0; column < board.length; column++)
+                board_ternary.append(aBoard[column]);
+        return board_ternary.toString();
     }
 }

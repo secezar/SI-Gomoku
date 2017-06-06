@@ -3,6 +3,8 @@ package pl.janyst.Game;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.*;
+import pl.janyst.Algorithms.AlphaBeta;
+import pl.janyst.Algorithms.Simple;
 
 import java.util.ArrayList;
 
