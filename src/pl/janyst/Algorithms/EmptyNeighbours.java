@@ -3,6 +3,7 @@ package pl.janyst.Algorithms;
 import pl.janyst.Game.Gomoku;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Objects;
  */
 public class EmptyNeighbours implements EvaluationFunction {
     @Override
-    public int evaluate(Gomoku gomoku) {
+    public int evaluate(Gomoku gomoku, HashSet<int[]> moves) {
         int sum = 0;
         int boardLength = gomoku.getSize();
         for (int row = 0; row < boardLength; row++) {
@@ -20,10 +21,12 @@ public class EmptyNeighbours implements EvaluationFunction {
                     for (Integer aNeighbour : neighbour) {
                         if (aNeighbour == 0)
                             sum += 1;
+                        else
+                            sum -= 1;
                     }
                 }
             }
         }
-        return 0;
+        return sum;
     }
 }

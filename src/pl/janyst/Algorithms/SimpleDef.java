@@ -3,6 +3,7 @@ package pl.janyst.Algorithms;
 import pl.janyst.Game.Gomoku;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 
 /**
@@ -11,27 +12,23 @@ import java.util.Objects;
 public class SimpleDef implements EvaluationFunction {
 
     @Override
-    public int evaluate(Gomoku gomoku) {
+    public int evaluate(Gomoku gomoku, HashSet<int[]> moves) {
         int sum = 0;
-        int boardLength = gomoku.getSize();
-        for (int row = 0; row < boardLength; row++) {
-            for (int column = 0; column < boardLength; column++) {
-                ArrayList<ArrayList<Integer>> lineNeighbours = gomoku.getNeighbouring(row,column);
-                for (ArrayList<Integer> neighbour: lineNeighbours) {
-                    if (neighbour.size() >= 5) {
-                        for (int group = 4; group > 1; group--) {
-                            for (int i = 0; i < neighbour.size() - 4; i++) {
-                                boolean isGroup = true;
-                                for (int j = 1; isGroup && j < group; j++) {
-                                    if (!Objects.equals(neighbour.get(i), neighbour.get(i + j)))
-                                        isGroup = false;
+        for (int[] move: moves) {
+            int row = move[0];
+            int column = move[1];
+            ArrayList<ArrayList<Integer>> lineNeighbours = gomoku.getNeighbouring(row, column);
+            for (ArrayList<Integer> neighbours: lineNeighbours) {
+                if (neighbours.size() >= 5) {
+                    for (int group = 5; group > 1; group--) {
+                        for (int i = 0; i < neighbours.size() - (group - 1); i++) {
+                            boolean isGroup = isGroup(neighbours, group, i);
+                            if (isGroup && neighbours.get(i) != 0) {
+                                boolean isCurrentPlayer = neighbours.get(i) == gomoku.getPlayer();
+                                if (group == 5) {
+                                    return isCurrentPlayer ? Integer.MAX_VALUE : Integer.MIN_VALUE;
                                 }
-                                if (isGroup) {
-                                    if (Objects.equals(neighbour.get(i), gomoku.getPlayer()))
-                                        sum += Math.pow(4, group);
-                                    else
-                                        sum -= 2 * Math.pow(4, group);
-                                }
+                                sum += isCurrentPlayer ? Math.pow(4, group) : -1*Math.pow(100, group);
                             }
                         }
                     }
@@ -40,4 +37,18 @@ public class SimpleDef implements EvaluationFunction {
         }
         return sum;
     }
+
+    private boolean isGroup(ArrayList<Integer> neighbours, int group, int i) {
+        boolean isGroup = true;
+        boolean oneEmptyFieldAllowed = true;
+        for (int j = 0; isGroup && j < group; j++) {
+            if (!Objects.equals(neighbours.get(i), neighbours.get(i + j)) | (neighbours.get(i) == 0 & !oneEmptyFieldAllowed))
+                isGroup = false;
+            else if (neighbours.get(i) == 0) {
+                oneEmptyFieldAllowed = false;
+            }
+        }
+        return isGroup;
+    }
 }
+
