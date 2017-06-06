@@ -18,35 +18,31 @@ public class Minimax extends ArtificalIntelligence {
         int[] best = getStartMoves();
         if (best != null)
             return best;
-        int[] result = minimax(depth, gomoku.getPlayer()); // depth, max turn
-        return new int[] {result[1], result[2]};   // row, col
+        int[] result = minimax(depth, gomoku.getPlayer());
+        return new int[] {result[1], result[2]};
     }
 
     private int[] minimax(int depth, int player) {
-        // Generate possible next moves in a List of int[2] of {row, col}.
-        List<int[]> nextMoves = generateMoves();
+        HashSet<int[]> nextMoves = generateMoves();
 
-        // mySeed is maximizing; while oppSeed is minimizing
         int bestScore = (player == gomoku.getPlayer()) ? Integer.MIN_VALUE : Integer.MAX_VALUE;
         int currentScore;
         int bestRow = -1;
         int bestColumn = -1;
 
         if (nextMoves.isEmpty() || depth == 0) {
-            // Gameover or depth reached, evaluate score
-            bestScore = evaluate();
+            bestScore = evaluate(gomoku.getFilledElems());
         } else {
             for (int[] move : nextMoves) {
-                // Try this move for the current "player"
                 gomoku.setBoardElement(move[0], move[1], player);
-                if (player == gomoku.getPlayer()) {  // mySeed (computer) is maximizing player
+                if (player == gomoku.getPlayer()) {
                     currentScore = minimax(depth - 1, gomoku.getOpponent())[0];
                     if (currentScore > bestScore) {
                         bestScore = currentScore;
                         bestRow = move[0];
                         bestColumn = move[1];
                     }
-                } else {  // oppSeed is minimizing player
+                } else {
                     currentScore = minimax(depth - 1, gomoku.getPlayer())[0];
                     if (currentScore < bestScore) {
                         bestScore = currentScore;
@@ -60,20 +56,4 @@ public class Minimax extends ArtificalIntelligence {
         }
         return new int[] {bestScore, bestRow, bestColumn};
     }
-
-    public List<int[]> generateMoves() {
-        int[][] board = gomoku.getBoard();
-        List<int[]> moves = new ArrayList<>();
-        int[] vertexes = gomoku.getVertexes();
-        for (int row = vertexes[0]-2; row < vertexes[1]+2; row++)
-            for (int column = vertexes[2]-2; column < vertexes[3]+2; column++)
-                if (row < board.length && row >= 0 && column < board.length && column >= 0 && gomoku.getBoardElement(row,column) == 0)
-                    moves.add(new int[] {row, column});
-        return moves;
-    }
-
-    public int evaluate() {
-        return evaluationFunction.evaluate(gomoku);
-    }
-
 }

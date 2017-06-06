@@ -4,6 +4,7 @@ import pl.janyst.Game.Gomoku;
 
 import javax.sound.midi.Soundbank;
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Created by Piotr Janyst on 2017-05-09.
@@ -24,14 +25,14 @@ public class AlphaBeta extends ArtificalIntelligence {
     }
 
     private int[] alphabeta(int depth, int player, int alpha, int beta) {
-        List<int[]> nextMoves = generateMoves();
+        HashSet<int[]> nextMoves = generateMoves();
 
         int score;
         int bestRow = -1;
         int bestColumn = -1;
 
         if (nextMoves.isEmpty() || depth == 0) {
-            score = evaluate();
+            score = evaluate(gomoku.getFilledElems());
             return new int[] {score, bestRow, bestColumn};
         }
         else {
@@ -39,7 +40,6 @@ public class AlphaBeta extends ArtificalIntelligence {
                 gomoku.setBoardElement(move[0], move[1], player);
                 if (player == gomoku.getPlayer()) {
                     score = alphabeta(depth - 1, gomoku.getOpponent(), alpha, beta)[0];
-                    System.out.println("score curr: " + score);
                     if (score > alpha) {
                         alpha = score;
                         bestRow = move[0];
@@ -47,7 +47,6 @@ public class AlphaBeta extends ArtificalIntelligence {
                     }
                 } else {
                     score = alphabeta(depth - 1, gomoku.getPlayer(), alpha, beta)[0];
-                    System.out.println("score opp: " + score);
                     if (score < beta) {
                         beta = score;
                         bestRow = move[0];
@@ -60,20 +59,4 @@ public class AlphaBeta extends ArtificalIntelligence {
         }
         return new int[] {(player == gomoku.getPlayer()) ? alpha : beta, bestRow, bestColumn};
     }
-
-    public List<int[]> generateMoves() {
-        int[][] board = gomoku.getBoard();
-        List<int[]> moves = new ArrayList<>();
-        int[] vertexes = gomoku.getVertexes();
-        for (int row = vertexes[0]-2; row < vertexes[1]+2; row++)
-            for (int column = vertexes[2]-2; column < vertexes[3]+2; column++)
-                if (row < board.length && row >= 0 && column < board.length && column >= 0 && gomoku.getBoardElement(row, column) == 0)
-                    moves.add(new int[] {row, column});
-        return moves;
-    }
-
-    public int evaluate() {
-        return evaluationFunction.evaluate(gomoku);
-    }
-
 }
