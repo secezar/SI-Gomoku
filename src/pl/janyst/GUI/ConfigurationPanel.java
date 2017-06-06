@@ -1,9 +1,6 @@
 package pl.janyst.GUI;
 
-import pl.janyst.Algorithms.AlphaBeta;
-import pl.janyst.Algorithms.ArtificalIntelligence;
-import pl.janyst.Algorithms.Minimax;
-import pl.janyst.Algorithms.MoveHeuristicCombined;
+import pl.janyst.Algorithms.*;
 import pl.janyst.Game.Gomoku;
 
 import javax.swing.*;
@@ -103,7 +100,7 @@ public class ConfigurationPanel extends JFrame{
         JSlider sliderDepthFirstAI = new JSlider();
 
         sliderDepthFirstAI.setToolTipText("Depth of first AI");
-        sliderDepthFirstAI.setMinimum(0);
+        sliderDepthFirstAI.setMinimum(1);
         sliderDepthFirstAI.setValue(1);
         sliderDepthFirstAI.setMaximum(6);
         sliderDepthFirstAI.setMajorTickSpacing(1);
@@ -168,13 +165,13 @@ public class ConfigurationPanel extends JFrame{
         c.gridy = 1;
         pane.add(sliderHeuristicNeighboursFirstAI, c);
 
-        String[] data = {"one", "two", "three", "four"};
-        final JComboBox<String> cb = new JComboBox<>(data);
+        String[] data = {"No Ordering", "Transposition Table", "Static Ordering", "NegaScout"};
+        final JComboBox<String> moveHeuristicsFirstAI = new JComboBox<>(data);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 6;
         c.gridy = 1;
-        pane.add(cb, c);
-        cb.setVisible(true);
+        pane.add(moveHeuristicsFirstAI, c);
+        moveHeuristicsFirstAI.setVisible(true);
 
         JButton button3 = new JButton("Minmax vs Minmax");
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -191,7 +188,7 @@ public class ConfigurationPanel extends JFrame{
         JSlider sliderDepthSecondAI = new JSlider();
 
         sliderDepthSecondAI.setToolTipText("Depth of second AI");
-        sliderDepthSecondAI.setMinimum(0);
+        sliderDepthSecondAI.setMinimum(1);
         sliderDepthSecondAI.setValue(1);
         sliderDepthSecondAI.setMaximum(6);
         sliderDepthSecondAI.setMajorTickSpacing(1);
@@ -255,13 +252,26 @@ public class ConfigurationPanel extends JFrame{
         c.gridy = 2;
         pane.add(sliderHeuristicNeighboursSecondAI, c);
 
-        String[] data2 = {"one", "two", "three", "four"};
-        final JComboBox<String> cb2 = new JComboBox<>(data2);
+        String[] data2 = {"No Ordering", "Transposition Table", "Static Ordering", "NegaScout"};
+        final JComboBox<String> moveHeuristicsSecondAI = new JComboBox<>(data2);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 6;
         c.gridy = 2;
-        pane.add(cb2, c);
-        cb2.setVisible(true);
+        pane.add(moveHeuristicsSecondAI, c);
+        moveHeuristicsSecondAI.setVisible(true);
+
+        alphaBetaFirstAI.addChangeListener(e -> {
+            if (alphaBetaFirstAI.isSelected())
+                moveHeuristicsFirstAI.setEnabled(true);
+                pane.revalidate();
+                pane.repaint();
+        });
+        alphaBetaSecondAI.addChangeListener(e -> {
+            if (alphaBetaSecondAI.isSelected())
+                moveHeuristicsSecondAI.setEnabled(true);
+                pane.revalidate();
+                pane.repaint();
+        });
 
         button.addActionListener(e -> {
             // display/center the jdialog when the button is pressed
@@ -291,12 +301,8 @@ public class ConfigurationPanel extends JFrame{
             int sliderHeuristicClusterFirstAIValue = sliderHeuristicClusterFirstAI.getValue();
             int sliderHeuristicNeighboursFirstAIValue = sliderHeuristicNeighboursFirstAI.getValue();
             int sliderDepthFirstAIValue = sliderDepthFirstAI.getValue();
-            if (alphaBetaFirstAISelected) {
-                ai = new AlphaBeta(new MoveHeuristicCombined(sliderHeuristicLineFirstAIValue, sliderHeuristicClusterFirstAIValue, sliderHeuristicNeighboursFirstAIValue), sliderDepthFirstAIValue);
-            }
-            else {
-                ai = new Minimax(new MoveHeuristicCombined(sliderHeuristicLineFirstAIValue, sliderHeuristicClusterFirstAIValue, sliderHeuristicNeighboursFirstAIValue), sliderDepthFirstAIValue);
-            }
+            int moveHeuristicFirstAIListIndex = moveHeuristicsFirstAI.getSelectedIndex();
+            ai = getArtificalIntelligence(alphaBetaFirstAISelected, sliderHeuristicLineFirstAIValue, sliderHeuristicClusterFirstAIValue, sliderHeuristicNeighboursFirstAIValue, sliderDepthFirstAIValue, moveHeuristicFirstAIListIndex);
             GomokuPanel panel = new GomokuPanel(ai);
             frame.add(panel);
             frame.setVisible(true);
@@ -319,12 +325,8 @@ public class ConfigurationPanel extends JFrame{
             int sliderHeuristicClusterFirstAIValue = sliderHeuristicClusterFirstAI.getValue();
             int sliderHeuristicNeighboursFirstAIValue = sliderHeuristicNeighboursFirstAI.getValue();
             int sliderDepthFirstAIValue = sliderDepthFirstAI.getValue();
-            if (alphaBetaFirstAISelected) {
-                ai = new AlphaBeta(new MoveHeuristicCombined(sliderHeuristicLineFirstAIValue, sliderHeuristicClusterFirstAIValue, sliderHeuristicNeighboursFirstAIValue), sliderDepthFirstAIValue);
-            }
-            else {
-                ai = new Minimax(new MoveHeuristicCombined(sliderHeuristicLineFirstAIValue, sliderHeuristicClusterFirstAIValue, sliderHeuristicNeighboursFirstAIValue), sliderDepthFirstAIValue);
-            }
+            int moveHeuristicFirstAIListIndex = moveHeuristicsFirstAI.getSelectedIndex();
+            ai = getArtificalIntelligence(alphaBetaFirstAISelected, sliderHeuristicLineFirstAIValue, sliderHeuristicClusterFirstAIValue, sliderHeuristicNeighboursFirstAIValue, sliderDepthFirstAIValue, moveHeuristicFirstAIListIndex);
             System.out.println(String.format("LAUNCHED FIRST AI WITH: %n AlphaBeta: %s %n Heur Weights: (%d,%d,%d) %n Depth: %d %n", alphaBetaFirstAISelected, sliderHeuristicLineFirstAIValue, sliderHeuristicClusterFirstAIValue, sliderHeuristicNeighboursFirstAIValue, sliderDepthFirstAIValue));
 
             boolean alphaBetaSecondAISelected = alphaBetaSecondAI.isSelected();
@@ -332,18 +334,46 @@ public class ConfigurationPanel extends JFrame{
             int sliderHeuristicClusterSecondAIValue = sliderHeuristicClusterSecondAI.getValue();
             int sliderHeuristicNeighboursSecondAIValue = sliderHeuristicNeighboursSecondAI.getValue();
             int sliderDepthSecondAIValue = sliderDepthSecondAI.getValue();
-            if (alphaBetaSecondAISelected) {
-                ai2 = new AlphaBeta(new MoveHeuristicCombined(sliderHeuristicLineSecondAIValue, sliderHeuristicClusterSecondAIValue, sliderHeuristicNeighboursSecondAIValue), sliderDepthSecondAIValue);
-            }
-            else {
-                ai2 = new Minimax(new MoveHeuristicCombined(sliderHeuristicLineSecondAIValue, sliderHeuristicClusterSecondAIValue, sliderHeuristicNeighboursSecondAIValue), sliderDepthSecondAIValue);
-            }
+            int moveHeuristicSecondAIListIndex = moveHeuristicsSecondAI.getSelectedIndex();
+            ai2 = getArtificalIntelligence(alphaBetaSecondAISelected, sliderHeuristicLineSecondAIValue, sliderHeuristicClusterSecondAIValue, sliderHeuristicNeighboursSecondAIValue, sliderDepthSecondAIValue, moveHeuristicSecondAIListIndex);
             System.out.println(String.format("LAUNCHED SECOND AI WITH: %n AlphaBeta: %s %n Heur Weights: (%d,%d,%d) %n Depth: %d %n", alphaBetaSecondAISelected, sliderHeuristicLineSecondAIValue, sliderHeuristicClusterSecondAIValue, sliderHeuristicNeighboursSecondAIValue, sliderDepthSecondAIValue));
 
             GomokuPanel panel = new GomokuPanel(ai, ai2);
             frame.add(panel);
             frame.setVisible(true);
         });
+    }
+
+    private static ArtificalIntelligence getArtificalIntelligence(boolean alphaBetaAISelected, int sliderHeuristicLineAIValue, int sliderHeuristicClusterAIValue, int sliderHeuristicNeighboursAIValue, int sliderDepthAIValue, int moveHeuristicAIListIndex) {
+        ArtificalIntelligence ai;
+        if (alphaBetaAISelected) {
+            switch (moveHeuristicAIListIndex) {
+                case 0 : {
+                    ai = new AlphaBeta(new MoveHeuristicCombined(sliderHeuristicLineAIValue, sliderHeuristicClusterAIValue, sliderHeuristicNeighboursAIValue), sliderDepthAIValue);
+                    break;
+                }
+                case 1 : {
+                    ai = new AlphaBetaTranspositionTable(new MoveHeuristicCombined(sliderHeuristicLineAIValue, sliderHeuristicClusterAIValue, sliderHeuristicNeighboursAIValue), sliderDepthAIValue);
+                    break;
+                }
+                case 2 : {
+                    ai = new AlphaBetaStaticOrdering(new MoveHeuristicCombined(sliderHeuristicLineAIValue, sliderHeuristicClusterAIValue, sliderHeuristicNeighboursAIValue), sliderDepthAIValue);
+                    break;
+                }
+                case 3 : {
+                    ai = new NegaScout(new MoveHeuristicCombined(sliderHeuristicLineAIValue, sliderHeuristicClusterAIValue, sliderHeuristicNeighboursAIValue), sliderDepthAIValue);
+                    break;
+                }
+                default: {
+                    ai = new AlphaBeta(new MoveHeuristicCombined(sliderHeuristicLineAIValue, sliderHeuristicClusterAIValue, sliderHeuristicNeighboursAIValue), sliderDepthAIValue);
+                    break;
+                }
+            }
+        }
+        else {
+            ai = new Minimax(new MoveHeuristicCombined(sliderHeuristicLineAIValue, sliderHeuristicClusterAIValue, sliderHeuristicNeighboursAIValue), sliderDepthAIValue);
+        }
+        return ai;
     }
 
     /**
